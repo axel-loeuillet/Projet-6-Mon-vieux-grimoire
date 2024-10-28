@@ -1,4 +1,15 @@
 const express = require('express');
+const mongoose = require('mongoose');
+
+const stuffRoutes = require('./routes/stuff');
+
+mongoose.connect('mongodb+srv://axlo_:UxPQgVxT21D6JYoS@projet6.3qfmg.mongodb.net/?retryWrites=true&w=majority&appName=Projet6',
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => console.log('Connexion à MongoDB réussie !'))
+    .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 const app = express();
 
@@ -9,9 +20,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api/stuff', (req, res, next) => {
-
-    res.status(200).json({ message: 'coucou' });
-});
+app.use('/api/stuff', stuffRoutes);
 
 module.exports = app;
