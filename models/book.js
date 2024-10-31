@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//MODELE DE SCHEMA POUR UN LIVRE
 const bookSchema = mongoose.Schema({
     userId: { type: String, required: true },
     title: { type: String, required: true },
@@ -9,11 +10,11 @@ const bookSchema = mongoose.Schema({
     genre: { type: String, required: true },
     ratings: [
         {
-            userId: { type: String, required: true },
-            grade: { type: Number, required: true },
+            userId: { type: String },
+            grade: { type: Number },
         }
     ],
-    averageRating: { type: Number, required: true }
+    averageRating: { type: Number },
 });
 
 module.exports = mongoose.model('Book', bookSchema);
