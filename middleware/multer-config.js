@@ -3,7 +3,6 @@ const sharp = require('sharp');
 path = require('path');
 fs = require('fs');
 
-//sets the storage up
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, 'images');
@@ -14,7 +13,6 @@ const storage = multer.diskStorage({
     }
 });
 
-//ensure that files are always images
 const filter = (req, file, callback) => {
     if (file.mimetype.split("/")[0] === 'image') {
         callback(null, true);
@@ -23,10 +21,8 @@ const filter = (req, file, callback) => {
     }
 };
 
-//upload module
 const upload = multer({ storage: storage, fileFilter: filter }).single('image');
 
-//optimize module
 const optimize = (req, res, next) => {
     if (req.file) {
         const filePath = req.file.path;
@@ -36,7 +32,6 @@ const optimize = (req, res, next) => {
             .webp()
             .toFile(output)
             .then(() => {
-                //delete older file, keep the resized one
                 fs.unlink(filePath, () => {
                     req.file.path = output;
                     next();
