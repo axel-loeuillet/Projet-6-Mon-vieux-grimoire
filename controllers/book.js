@@ -95,6 +95,9 @@ exports.ratingBook = (req, res, next) => {
             } else {
                 book.ratings.push(updatedRating);
                 book.averageRating = (book.averageRating * (book.ratings.length - 1) + updatedRating.grade) / book.ratings.length;
+
+                book.averageRating = Math.round(newAverageRating * 100) / 100;
+
                 return book.save();
             }
         })
