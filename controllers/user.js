@@ -6,11 +6,11 @@ const passwordRegex = /^(?=.*[A-z])(?=.*[0-9])\S{8,10}$/
 
 exports.signup = (req, res, next) => {
     if (!emailRegex.test(req.body.email)) {
-        return res.status(410).json({ alert: "Email non conforme" })
+        return res.status(410).json({ message: "Email non conforme" })
     }
 
     if (!passwordRegex.test(req.body.password)) {
-        return res.status(410).json({ alert: "Le mot de passe doit contenir au moins 8 catactères, dont une majuscule et un chiffre" })
+        return res.status(410).json({ message: "Le mot de passe doit contenir au moins 8 catactères, dont une majuscule et un chiffre" })
     }
 
     bcrypt.hash(req.body.password, 10)

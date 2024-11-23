@@ -94,9 +94,9 @@ exports.ratingBook = (req, res, next) => {
                 return res.status(400).json({ message: 'User already voted for this book' });
             } else {
                 book.ratings.push(updatedRating);
-                book.averageRating = (book.averageRating * (book.ratings.length - 1) + updatedRating.grade) / book.ratings.length;
+                const newAverageRating = (book.averageRating * (book.ratings.length - 1) + updatedRating.grade) / book.ratings.length;
 
-                book.averageRating = Math.round(newAverageRating * 100) / 100;
+                book.averageRating = parseFloat(newAverageRating.toFixed(1));
 
                 return book.save();
             }
